@@ -1,0 +1,94 @@
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+p {
+    position: absolute;
+}
+
+body {
+    overflow:hidden;
+    overflow-y: hidden;
+    overflow-x: hidden
+}
+
+*{
+    -ms-overflow-style: none !important;
+    overflow:hidden;
+    overflow-y: hidden;
+    overflow-x: hidden
+}
+::-webkit-scrollbar {
+    display: none !important;
+}
+
+.editor {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    position: absolute;
+    background: #f4f4f4;
+    color: #333;
+    fontFamily: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.submenu {
+    background: #f4f4f408;
+}
+
+.save-options {
+    position: absolute;
+    max-width: 100px;
+    max-height: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.save-options-button {
+    z-index: 10000;
+    transition-duration: 600ms;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    margin: 2px;
+    padding: 4px;
+    border-radius: 4px;
+    border-style: none;
+}
+
+.save-options-button:hover {
+    cursor: pointer;
+    transition-duration: 600ms;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.dnd-picture {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+}
+
+.edit-media-card {
+    width: 100px;
+    height: 100px;
+}
+
+.limit-size {
+    max-width: 300px;
+    min-width: 300px;
+    max-height: 600px;
+    min-height: 600px;
+}
+
+.selected {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: yellow;
+    transform: scale(2);
+}

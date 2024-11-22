@@ -1,0 +1,28 @@
+.App {
+  text-align: center;
+  background-color: rgb(28, 28, 28);
+  min-width: 100vw;
+  min-height: 100vh;
+  color: white;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow:hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
