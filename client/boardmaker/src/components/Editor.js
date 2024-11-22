@@ -296,6 +296,9 @@ function Editor() {
                   </MenuItem>
                 )}
               </SubMenu>
+              <MenuItem>
+                <button onClick={() =>  navigator.clipboard.writeText('http://localhost:3001/viewboard/' + String(id))}>Get Share Link</button>
+              </MenuItem>
             </Menu>
         </Sidebar>
       <div className='dnd-container'>

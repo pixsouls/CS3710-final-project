@@ -11,6 +11,9 @@ import Login from './components/Login';
 // THE editor
 import Editor from './components/Editor';
 
+// Board Viewer
+import ViewBoard from './components/ViewBoard';
+
 // user routes
 import CreateUser from './components/CreateUser';
 import EditUser from './components/EditUser';
@@ -36,6 +39,8 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/editor/:id" element={<Editor />} />
+
+          <Route path="/viewboard/:id" element={<ViewBoard />} />
 
           <Route path="/user/create" element={<CreateUser />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
