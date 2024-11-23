@@ -9,6 +9,7 @@ import {ReactComponent as SaveIcon} from '../icons/save.svg'
 import {ReactComponent as AddIcon} from '../icons/add.svg'
 import {ReactComponent as EditIcon} from '../icons/edit.svg'
 import {ReactComponent as MenuIcon} from '../icons/menu.svg'
+import {ReactComponent as ShareIcon} from '../icons/share.svg'
 
 
 const API_URL = 'http://localhost:3000/api/v1/';
@@ -296,9 +297,24 @@ function Editor() {
                   </MenuItem>
                 )}
               </SubMenu>
-              <MenuItem>
-                <button onClick={() =>  navigator.clipboard.writeText('http://localhost:3001/viewboard/' + String(id))}>Get Share Link</button>
-              </MenuItem>
+              {collapsed ? (
+                <MenuItem icon={ <ShareIcon />}></MenuItem>
+                ) : (
+                  <>
+                  <MenuItem icon={ <ShareIcon />}>
+                    <button 
+                    style={{
+                      padding: '8px',
+                      backgroundColor: '#007BFF',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                    }}
+                    onClick={() =>  navigator.clipboard.writeText('http://localhost:3001/viewboard/' + String(id))}>Get Share Link</button>
+                    </MenuItem>
+                  </>
+              )}
             </Menu>
         </Sidebar>
       <div className='dnd-container'>

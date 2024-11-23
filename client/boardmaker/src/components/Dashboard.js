@@ -36,16 +36,13 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>Hello, Demo_User</h1>
-      <h2>Navigate to Other Routes</h2>
+      <h1>Hello</h1>
+      <h2>Actions</h2>
       <div>
-        <button onClick={() => handleNavigate('/users')}>Go to Users</button>
-        <button onClick={() => handleNavigate('/boards')}>Go to Boards</button>
-        <button onClick={() => handleNavigate('/media')}>Go to Media</button>
-        <button onClick={() => handleNavigate('/login')}> (TEST)Go to Login</button>
-        <button onClick={() => handleNavigate('/user/create')}> (TEST)Create User</button>
+        <button onClick={() => handleNavigate('/users')}>View All Users</button>
+        <button onClick={() => handleNavigate('/boards')}>View All Boards</button>
+        <button onClick={() => handleNavigate('/media')}>View All Media</button>
         <button onClick={() => handleNavigate('/board/create')}>Create Board</button>
-        <button onClick={() => handleNavigate('/media/create')}> (TEST) Create Media</button>
       </div>
 
       <h3>Search for Boards</h3>
@@ -75,7 +72,8 @@ function Dashboard() {
               onClick={() => handleNavigate('/editor/' + board.id)}
             >
               <h3>{board.title}</h3>
-              <p className='description-text'>{board.description || "No description available dads adsa  adsasdads   das dasd asd asd sa"}</p>
+              <h4>{board.user_id}</h4>
+              <p className='description-text'>{board.description || "No description available"}</p>
             </div>
           ))
         ) : (

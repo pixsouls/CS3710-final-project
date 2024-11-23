@@ -1,8 +1,10 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// import { useState } from 'react';
 
 // general components
 import Dashboard from './components/Dashboard';
+import Welcome from './components/Welcome';
 import Users from './components/Users';
 import Boards from './components/Boards';
 import Media from './components/Media';
@@ -28,6 +30,10 @@ import EditMedia from './components/EditMedia';
 
 
 function App() {
+  // const [accessToken, setAccessToken] = useState([]);
+  // const [refreshToken, setRefreshToken] = useState([]);
+  // const [resourceOwner, setResourceOwner] = useState([]);
+
   return (
     <Router>
       <div className="App">
@@ -40,6 +46,8 @@ function App() {
 
           <Route path="/editor/:id" element={<Editor />} />
 
+          <Route path="/welcome" element={<Welcome />} />
+
           <Route path="/viewboard/:id" element={<ViewBoard />} />
 
           <Route path="/user/create" element={<CreateUser />} />
@@ -50,7 +58,7 @@ function App() {
 
           <Route path="/media/create" element={<CreateMedia />} />
           <Route path="/media/edit/:id" element={<EditMedia />} />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/welcome" />} />
         </Routes>
       </div>
     </Router>

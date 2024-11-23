@@ -18,7 +18,6 @@ function Login() {
       // Send the email and password to the Devise API
       const response = await axios.post(API_URL, { email, password });
 
-      // Get the JWT token and store it in localStorage
       const { data } = response;
       const token = response.headers['access-token'];
       const client = response.headers['client'];
