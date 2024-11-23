@@ -1,13 +1,20 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api/v1/boards';
 
 function CreateBoard() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [user_id, setUser_id] = useState('');
   const [message, setMessage] = useState('');
+
+    // Handle route navigation
+  const handleNavigate = (route) => {
+    navigate(route);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +31,7 @@ function CreateBoard() {
       setTitle('');
       setDesc('');
       setUser_id('');
+      handleNavigate('/dashboard')
     } catch (error) {
       setMessage('Error creating Board');
     }

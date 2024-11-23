@@ -24,12 +24,10 @@ function Dashboard() {
     navigate(route);
   };
 
-  // Handle search input change
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // Filter boards based on search term
   const filteredBoards = boards.filter(board =>
     board.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -73,7 +71,7 @@ function Dashboard() {
             >
               <h3>{board.title}</h3>
               <h4>{board.user_id}</h4>
-              <p className='description-text'>{board.description || "No description available"}</p>
+              <p className='description-text'>{board.desc || "No description available"}</p>
             </div>
           ))
         ) : (

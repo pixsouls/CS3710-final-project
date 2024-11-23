@@ -1,14 +1,21 @@
+import '../css/CreateUser.css'
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/api/v1/users';
 
 function CreateUser() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [message, setMessage] = useState('');
+
+  const handleNavigate = (route) => {
+    navigate(route);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,6 +40,7 @@ function CreateUser() {
       setEmail('');
       setPassword('');
       setPasswordConfirmation('');
+      handleNavigate('/dashboard');
     } catch (error) {
       setMessage('Error creating user');
     }
@@ -79,8 +87,8 @@ function CreateUser() {
           />
         </div>
         <button type="submit">Create User</button>
+        {message && <p>{message}</p>}
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 }

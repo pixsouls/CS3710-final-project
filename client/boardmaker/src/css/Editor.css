@@ -92,3 +92,7 @@ body {
     color: yellow;
     transform: scale(2);
 }
+
+input {
+    color: black;
+}

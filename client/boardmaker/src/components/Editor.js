@@ -1,6 +1,6 @@
 import '../css/Editor.css'
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Draggable from 'react-draggable';
 import EditMediaCard from './EditMediaCard';
@@ -23,6 +23,7 @@ const api = axios.create({
 });
 
 function Editor() {
+  const navigate = useNavigate();
   const [board, setBoard] = useState(null); // Start with null to indicate no data
   const [media, setMedia] = useState([]);
   const [focusedMedia, setFocusedMedia] = useState(null); // Track the selected media
@@ -58,6 +59,10 @@ function Editor() {
   
     fetchData();
   }, [id]);
+
+  const handleNavigate = (route) => {
+    navigate(route);
+  };
 
   const handleDragStop = (e, data, mediaId) => {
     setPositions((prev) => ({
@@ -186,6 +191,7 @@ function Editor() {
                             borderRadius: '4px',
                             border: '1px solid #ccc',
                             margin: '12px',
+                            color: '#000000',
                           }}
                       />
                     </MenuItem>
@@ -204,6 +210,7 @@ function Editor() {
                             borderRadius: '4px',
                             border: '1px solid #ccc',
                             margin: '12px',
+                            color: '#000000',
                           }}
                       />
                     </MenuItem>
@@ -243,6 +250,7 @@ function Editor() {
                           borderRadius: '4px',
                           border: '1px solid #ccc',
                           margin: '4px',
+                          color: '#000000',
                         }}
                       />
                     </MenuItem>
@@ -259,6 +267,7 @@ function Editor() {
                           borderRadius: '4px',
                           border: '1px solid #ccc',
                           margin: '4px',
+                          color: '#000000',
                         }}
                       />
                     </MenuItem>
@@ -315,6 +324,20 @@ function Editor() {
                     </MenuItem>
                   </>
               )}
+              <MenuItem>
+                <button 
+                  onClick={() => handleNavigate('/dashboard')}
+                  style={{
+                    padding: '8px',
+                    backgroundColor: '#007BFF',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                  }}>
+                    Back to Dashboard
+                  </button>
+              </MenuItem>
             </Menu>
         </Sidebar>
       <div className='dnd-container'>
