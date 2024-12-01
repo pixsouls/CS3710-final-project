@@ -1,4 +1,5 @@
 class Api::V1::BoardsController < ApplicationController
+  skip_before_action :verify_authenticity_token, raise: false
   before_action :set_board, only: %i[ show update destroy ]
 
   # GET /boards
@@ -11,6 +12,18 @@ class Api::V1::BoardsController < ApplicationController
   # GET /boards/1
   def show
     render json: @board
+  end
+
+  # GET /boards/search
+  def search
+    user_id = params[:user_id]
+    if user_id
+      @boards = Board.where(user_id: user_id)
+    else
+      @boards = Board.all
+    end
+
+    render json: @boards
   end
 
   # GET /boards/:id/media

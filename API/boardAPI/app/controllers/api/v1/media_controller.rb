@@ -1,4 +1,5 @@
 class Api::V1::MediaController < ApplicationController
+  skip_before_action :verify_authenticity_token, raise: false
   before_action :set_media, only: %i[show update destroy]
 
   # GET /media
