@@ -1,3 +1,30 @@
+h3 {
+    margin: 12px;
+}
+
+h4 {
+    margin: 12px
+}
+
+button {
+    transition-duration: 200ms;
+    cursor: pointer;
+    transform: scale(.95);
+    color: white;
+    padding: 6px;
+    margin: 12px;
+    background-color: #ebebeb96;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    border-width: 0;
+}
+
+button:hover {
+    transition-duration: 200ms;
+    transform: scale(1);
+    box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.221);
+}
+
 .board-cards {
     display: flex;
     grid-auto-flow: column;
@@ -9,8 +36,10 @@
 }
 
 .board-card {
-    transition-duration: 200ms;
+    transition-duration: 1000ms;
     transform: scale(.95);
+    display: grid;
+    grid-template-rows: 50px 40px 100px 50px 50px;
     width: 200px;
     height: 300px;
     background-color: #ebebeb96;
@@ -34,23 +63,5 @@
     white-space: pre-line;
     text-overflow:clip;
     width: inherit;
-    display: block;
     overflow: hidden;
-}
-
-button {
-    cursor: pointer;
-    transform: scale(.95);
-    color: white;
-    padding: 6px;
-    margin: 12px;
-    background-color: #ebebeb96;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-}
-
-button:hover {
-    transition-duration: 200ms;
-    transform: scale(1);
-    box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.221);
 }

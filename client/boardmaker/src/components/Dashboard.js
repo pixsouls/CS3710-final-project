@@ -10,6 +10,7 @@ function Dashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); // Add loading state
 
+
   // Fetch all boards on component mount
   useEffect(() => {
     const token = localStorage.getItem('access-token');
@@ -44,12 +45,40 @@ function Dashboard() {
         setLoading(false); // Set loading to false if there's an error
       });
     }
+    
   }, []);
 
   // Handle route navigation
   const handleNavigate = (route) => {
     navigate(route);
   };
+
+  // Delete a board
+  const DeleteBoard = (boardID) => {
+    let token = localStorage.getItem('access-token');
+    let uid = localStorage.getItem('uid');
+    if (token && uid) {
+      if (!window.confirm("Do you really want to delete this board?")) {
+        return;
+      }
+      
+      // Corrected the API endpoint URL here
+      axios.delete(`http://localhost:3000/api/v1/boards/${boardID}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        setLoading(false); 
+        window.location.reload(); // Refresh page after deleting
+      })
+      .catch(error => {
+        console.error('Error deleting board:', error);
+        setLoading(false);
+      });
+    }
+  }
+  
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -58,6 +87,7 @@ function Dashboard() {
   const filteredBoards = (boards || []).filter(board =>
     board.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+  
 
   if (loading) {
     return <div>Loading...</div>; // Show loading message while fetching data
@@ -88,8 +118,12 @@ function Dashboard() {
       <div className="board-cards">
         {/* Add Board card */}
         <div className="board-card" onClick={() => handleNavigate('/board/create')}>
-          <h3>Add Board</h3>
-          <p className='description-text'>Click here to create a new board.</p>
+          <h3>
+            Add New Board
+          </h3>
+          <div className='description-text'>
+            Click here to create a new board.
+          </div>
         </div>
 
         {/* Only render the boards section if there are boards */}
@@ -97,15 +131,35 @@ function Dashboard() {
           // Only render filtered boards if there are results
           filteredBoards.length > 0 ? (
             filteredBoards.map(board => (
-              <div
-                className="board-card"
-                key={board.id}
-                onClick={() => handleNavigate('/editor/' + board.id)}
-              >
+              <>
+                <div
+                  className="board-card"
+                  key={board.id}
+                >
                 <h3>{board.title}</h3>
                 <h4>{board.user_id}</h4>
-                <p className='description-text'>{board.desc || "No description available"}</p>
+                <div className='description-text'>{board.desc || "No description available"}</div>
+                <button
+                onClick={() => handleNavigate('/editor/' + board.id)}
+                style={{
+                  backgroundColor: '#0073e6',
+                  marginTop: 'auto',
+                  padding: '12px',
+                  fontSize: '24px'
+                }}>
+                  Show Board
+                </button>
+                <button
+                onClick={() => DeleteBoard(board.id)}
+                style={{
+                  backgroundColor: '#e6308a',
+                  color: '#111111',
+                  fontSize: '15px'
+                }}>
+                  Delete
+                </button>
               </div>
+              </>
             ))
           ) : (
             <div>No boards found matching your search.</div>  // Show message when no boards match the search term

@@ -9,10 +9,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 
 input {
   padding: .4rem;
@@ -20,6 +22,7 @@ input {
   border-radius: 2px;
   border-style: solid;
 }
+
 
 input::selection {
   border-color: red;

@@ -10,6 +10,8 @@ import {ReactComponent as AddIcon} from '../icons/add.svg'
 import {ReactComponent as EditIcon} from '../icons/edit.svg'
 import {ReactComponent as MenuIcon} from '../icons/menu.svg'
 import {ReactComponent as ShareIcon} from '../icons/share.svg'
+import {ReactComponent as BackIcon} from '../icons/back.svg'
+
 
 
 const API_URL = 'http://localhost:3000/api/v1/';
@@ -70,6 +72,10 @@ function Editor() {
       [mediaId]: { x: data.x, y: data.y },
     }));
   };
+
+  const toggleCollapsed = () => {
+    setCollapsed(!collapsed)
+  }
 
   const save = async () => {
     try {
@@ -162,150 +168,164 @@ function Editor() {
 
   return (
     <div className="editor">
-            <Sidebar  collapsed={collapsed} 
-                      onMouseEnter={() => setCollapsed(false)} onMouseLeave={() => setCollapsed(true)}
-                      className='sidebar'
-                     >
-            <Menu>
-              {collapsed ? (<MenuItem icon={<MenuIcon/>}></MenuItem>) : (<MenuItem icon={<MenuIcon/>}>Actions Menu</MenuItem>)}
-                {collapsed ? ( <MenuItem onClick={save} icon={<SaveIcon/>}></MenuItem> 
-              ) : (<MenuItem onClick={save} icon={<SaveIcon/>}>  Save </MenuItem>)}
-              <SubMenu label="Add" icon={<AddIcon />} SubMenuExpandIcon={<MenuIcon />}>
-                {collapsed ? (
-                  <></>
-                  
-                  ) : (
-                    <>
-                    <MenuItem>
-                      <label style={{ display: 'block', margin: '12px' }}>Media Name:</label>
-                    </MenuItem>
-                    <MenuItem>
-                    <input
-                          type="text"
-                          value={newMediaName}
-                          onChange={(e) => setNewMediaName(e.target.value)}
-                          required
-                          style={{
-                            width: 'fit-content',
-                            padding: '4px',
-                            borderRadius: '4px',
-                            border: '1px solid #ccc',
-                            margin: '12px',
-                            color: '#000000',
-                          }}
-                      />
-                    </MenuItem>
-                    <MenuItem>
-                    <label style={{ display: 'block', margin: '12px' }}>Media Source:</label>
-                    </MenuItem>
-                    <MenuItem>
-                    <input
-                          type="text"
-                          value={newMediaSrc}
-                          onChange={(e) => setNewMediaSrc(e.target.value)}
-                          required
-                          style={{
-                            width: 'fit-content',
-                            padding: '4px',
-                            borderRadius: '4px',
-                            border: '1px solid #ccc',
-                            margin: '12px',
-                            color: '#000000',
-                          }}
-                      />
-                    </MenuItem>
-                    <MenuItem>
-                      <button
-                        onClick={handleAddMedia}
-                        style={{
-                          padding: '8px 12px',
-                          backgroundColor: '#007BFF',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        Add Media
-                      </button>
-                    </MenuItem>
-                  </>
-                  )}
-                  </SubMenu>
-                  
+      <Sidebar  collapsed={collapsed} 
+                className='sidebar'
+                >
+      <Menu>
+        {collapsed ? (
+          <MenuItem icon={<MenuIcon/>} onClick={() => toggleCollapsed(true)}/>
+          ) : (
+          <MenuItem icon={<BackIcon/>} onClick={() => toggleCollapsed(true)}>
+            Actions Menu
+          </MenuItem>
+          )}
+          {collapsed ? ( 
+            <MenuItem onClick={save} icon={<SaveIcon/>} />
+            ) : (
+            <MenuItem onClick={save} icon={<SaveIcon/>}>  
+              Save 
+            </MenuItem>
+          )}
+        <SubMenu label="Add" icon={<AddIcon />} SubMenuExpandIcon={<MenuIcon />}>
+          {collapsed ? (
+            <></>
+          ) : (
+            <>
+              <MenuItem>
+                <label style={{ display: 'block', margin: '12px' }}>Media Name:</label>
+              </MenuItem>
+              <MenuItem>
+                <input
+                  type="text"
+                  value={newMediaName}
+                  onChange={(e) => setNewMediaName(e.target.value)}
+                  required
+                  style={{
+                    width: 'fit-content',
+                    padding: '4px',
+                    borderRadius: '4px',
+                    border: '1px solid #ccc',
+                    margin: '12px',
+                    color: '#000000',
+                  }}
+                />
+              </MenuItem>
+              <MenuItem>
+                <label style={{ display: 'block', margin: '12px' }}>Media Source:</label>
+              </MenuItem>
+              <MenuItem>
+                <input
+                  type="text"
+                  value={newMediaSrc}
+                  onChange={(e) => setNewMediaSrc(e.target.value)}
+                  required
+                  style={{
+                    width: 'fit-content',
+                    padding: '4px',
+                    borderRadius: '4px',
+                    border: '1px solid #ccc',
+                    margin: '12px',
+                    color: '#000000',
+                  }}
+                />
+              </MenuItem>
+              <MenuItem>
+                <button
+                  onClick={handleAddMedia}
+                  style={{
+                    padding: '8px 12px',
+                    backgroundColor: '#007BFF',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Add Media
+                </button>
+              </MenuItem>
+            </>
+          )}
+        </SubMenu>
 
-                <SubMenu label="Edit Selected Media" icon={<EditIcon/>} className='submenu'>
-                {focusedMedia ? (
-                  <>
-                    <MenuItem>
-                      <label style={{ display: 'block', margin: '4px' }}>Media Name:</label>
-                      <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        style={{
-                          width: 'fit-content',
-                          padding: '4px',
-                          borderRadius: '4px',
-                          border: '1px solid #ccc',
-                          margin: '4px',
-                          color: '#000000',
-                        }}
-                      />
-                    </MenuItem>
-                    <MenuItem>
-                      <label style={{ display: 'block', margin: '4px' }}>Media Source (URL):</label>
-                      <input
-                        type="url"
-                        value={src}
-                        onChange={(e) => setSrc(e.target.value)}
-                        required
-                        style={{
-                          width: 'fit-content',
-                          padding: '4px',
-                          borderRadius: '4px',
-                          border: '1px solid #ccc',
-                          margin: '4px',
-                          color: '#000000',
-                        }}
-                      />
-                    </MenuItem>
-                    <MenuItem>
-                      <button
-                        onClick={handleUpdateMedia}
-                        style={{
-                          padding: '8px 12px',
-                          backgroundColor: '#007BFF',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        Update Media
-                      </button>
-                    </MenuItem>
-                  </>
-                ) : (
-                  <MenuItem>
-                    <p style={{
-                          height:'fit-content',
-                          padding: '4px 4px',
-                          backgroundColor: '#007BFF',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '4px',
-                          cursor: 'pointer',
-                        }}>No media selected</p>
-                  </MenuItem>
-                )}
-                {message && (
-                  <MenuItem>
-                    <p style={{ color: 'green', margin: '12px' }}>{message}</p>
-                  </MenuItem>
-                )}
-              </SubMenu>
+        <SubMenu label="Edit Selected Media" icon={<EditIcon />}>
+          {focusedMedia && !collapsed ? (
+            <>
+              <MenuItem>
+                <label style={{ display: 'block', margin: '12px' }}>Media Name:</label>
+              </MenuItem>
+              <MenuItem>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  style={{
+                    width: 'fit-content',
+                    padding: '4px',
+                    borderRadius: '4px',
+                    border: '1px solid #ccc',
+                    margin: '12px',
+                    color: '#000000',
+                  }}
+                />
+              </MenuItem>
+              <MenuItem>
+                <label style={{ display: 'block', margin: '12px' }}>Media Source (URL):</label>
+              </MenuItem>
+              <MenuItem>
+                <input
+                  type="url"
+                  value={src}
+                  onChange={(e) => setSrc(e.target.value)}
+                  required
+                  style={{
+                    width: 'fit-content',
+                    padding: '4px',
+                    borderRadius: '4px',
+                    border: '1px solid #ccc',
+                    margin: '12px',
+                    color: '#000000',
+                  }}
+                />
+              </MenuItem>
+              <MenuItem>
+                <button
+                  onClick={handleUpdateMedia}
+                  style={{
+                    padding: '8px 12px',
+                    backgroundColor: '#007BFF',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Update Media
+                </button>
+              </MenuItem>
+            </>
+          ) : (
+            <MenuItem>
+              <p
+                style={{
+                  Color: '#000',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  position: 'relative',
+                }}
+              >
+                No media selected
+              </p>
+            </MenuItem>
+          )}
+          {message && (
+            <MenuItem>
+              <p style={{ color: 'green', margin: '12px', position: 'relative'}}>{message}</p>
+            </MenuItem>
+          )}
+        </SubMenu>
               {collapsed ? (
                 <MenuItem icon={ <ShareIcon />}></MenuItem>
                 ) : (
@@ -324,7 +344,12 @@ function Editor() {
                     </MenuItem>
                   </>
               )}
-              <MenuItem>
+              {collapsed ? (
+              <MenuItem icon={ <BackIcon /> }>
+              </MenuItem>
+              
+              ) : (
+                <MenuItem icon={ <BackIcon /> }>
                 <button 
                   onClick={() => handleNavigate('/dashboard')}
                   style={{
@@ -338,6 +363,8 @@ function Editor() {
                     Back to Dashboard
                   </button>
               </MenuItem>
+              )}
+              
             </Menu>
         </Sidebar>
       <div className='dnd-container'>

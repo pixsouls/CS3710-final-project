@@ -13,7 +13,7 @@ class Api::V1::SessionsController < DeviseTokenAuth::SessionsController
         response.set_header('access-token', new_token['access-token'])
         response.set_header('uid', new_token['uid'])
       else
-        # If tokens already exist, select one token (e.g., the first token or the latest token)
+        # If tokens already exist, select one token
         latest_token = user.tokens.values.first 
 
         Rails.logger.info "Using token: #{latest_token.inspect}"  # Log the token being used
