@@ -37,7 +37,7 @@ function Editor() {
   const [message, setMessage] = useState('');
   const [saveMessage, setSaveMessage] = useState('');
   const [positions, setPositions] = useState({}); // Track positions
-  const [loading, setLoading] = useState(true); // Loading state, for the loading... message
+  const [loading, setLoading] = useState(true); // Loading state, for the "loading..."" message
   const { id } = useParams();
 
   
@@ -236,6 +236,7 @@ function Editor() {
                 <button
                   onClick={handleAddMedia}
                   style={{
+                    fontSize: '12px',
                     padding: '8px 12px',
                     backgroundColor: '#007BFF',
                     color: '#fff',

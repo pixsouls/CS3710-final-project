@@ -37,6 +37,7 @@ body {
     color: #191a1e;
     fontFamily: Arial, sans-serif;
     overflow: hidden;
+    border-bottom-right-radius: 8px;
 }
 
 .submenu {

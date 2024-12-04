@@ -40,7 +40,6 @@ function CreateUser() {
       setEmail('');
       setPassword('');
       setPasswordConfirmation('');
-      handleNavigate('/dashboard');
     } catch (error) {
       setMessage('Error creating user');
     }
@@ -87,7 +86,7 @@ function CreateUser() {
           />
         </div>
         <button type="submit">Create User</button>
-        {message && <p>{message}</p>}
+        {message && <h4>{message}</h4>}
       </form>
     </div>
   );
