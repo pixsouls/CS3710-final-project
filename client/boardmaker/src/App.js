@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 // General components
 import Dashboard from './components/Dashboard';
 import Welcome from './components/Welcome';
+import Search from './components/Search';
 import Users from './components/Users';
 import Boards from './components/Boards';
 import Media from './components/Media';
@@ -81,6 +82,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/boards" element={<Boards />} />
           <Route path="/media" element={<Media />} />
+          <Route path="/search" element={<Search />} />
 
           {/* Login Route */}
           <Route
@@ -92,15 +94,15 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/viewboard/:id" element={<ViewBoard />} />
 
-          {/* User Routes */}
+          {/* User Routes (MOSTLY FOR DEBUGGING) */}
           <Route path="/user/create" element={<CreateUser />} />
           <Route path="/user/edit/:id" element={<EditUser />} />
 
-          {/* Board Routes */}
+          {/* Board Routes (MOSTLY FOR DEBUGGING) */}
           <Route path="/board/create" element={<CreateBoard />} />
           <Route path="/board/edit/:id" element={<EditBoard />} />
 
-          {/* Media Routes */}
+          {/* Media Routes (MOSTLY FOR DEBUGGING) */}
           <Route path="/media/create" element={<CreateMedia />} />
           <Route path="/media/edit/:id" element={<EditMedia />} />
 

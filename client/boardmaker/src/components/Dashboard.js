@@ -6,21 +6,18 @@ import axios from 'axios';
 function Dashboard() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
-  const [boards, setBoards] = useState([]);  // boards is initially an empty array
+  const [boards, setBoards] = useState([]);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
 
-
-  // Fetch all boards on component mount
   useEffect(() => {
     const token = localStorage.getItem('access-token');
     const uid = localStorage.getItem('uid');
 
     if (token && uid) {
-      // Fetch user details using the UID
       axios.get(`http://localhost:3000/api/v1/users/${uid}`, {
         headers: {
-          Authorization: `Bearer ${token}` // Send token in Authorization header
+          Authorization: `Bearer ${token}`
         }
       })
       .then(response => {
@@ -30,30 +27,26 @@ function Dashboard() {
         console.error('Error fetching user details:', error);
       });
 
-      // Fetch boards for the current user
       axios.get(`http://localhost:3000/api/v1/boards/search?user_id=${uid}`, {
         headers: {
-          'Authorization': `Bearer ${token}` // Send token in Authorization header
+          'Authorization': `Bearer ${token}`
         }
       })
       .then(response => {
         setBoards(response.data);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       })
       .catch(error => {
         console.error('Error fetching boards:', error);
-        setLoading(false); // Set loading to false if there's an error
+        setLoading(false);
       });
     }
-    
   }, []);
 
-  // Handle route navigation
   const handleNavigate = (route) => {
     navigate(route);
   };
 
-  // Delete a board
   const DeleteBoard = (boardID) => {
     let token = localStorage.getItem('access-token');
     let uid = localStorage.getItem('uid');
@@ -62,7 +55,6 @@ function Dashboard() {
         return;
       }
       
-      // Corrected the API endpoint URL here
       axios.delete(`http://localhost:3000/api/v1/boards/${boardID}`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -70,7 +62,7 @@ function Dashboard() {
       })
       .then(response => {
         setLoading(false); 
-        window.location.reload(); // Refresh page after deleting
+        window.location.reload();
       })
       .catch(error => {
         console.error('Error deleting board:', error);
@@ -78,7 +70,6 @@ function Dashboard() {
       });
     }
   }
-  
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -87,36 +78,44 @@ function Dashboard() {
   const filteredBoards = (boards || []).filter(board =>
     board.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-  
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading message while fetching data
+    return <div>Loading...</div>;
   }
 
   return (
     <div>
       <h1>Hello {user ? user.name : 'Loading...'}</h1>
       <h2>Actions</h2>
-      <div>
-        <button onClick={() => handleNavigate('/users')}>View All Users</button>
-        <button onClick={() => handleNavigate('/boards')}>View All Boards</button>
-        <button onClick={() => handleNavigate('/media')}>View All Media</button>
-        <button onClick={() => handleNavigate('/board/create')}>Create Board</button>
+      <div style={{
+        overflow: 'visible',
+      }}>
+        <button 
+          onClick={() => handleNavigate('/search')} 
+          aria-label="Go to search boards page"
+        >
+          Search Boards
+        </button>
+        <button 
+          onClick={() => handleNavigate('/board/create')} 
+          aria-label="Go to create board page"
+        >
+          Create Board
+        </button>
       </div>
 
-      <h3>Search for Boards</h3>
+      <h3>Search My Boards</h3>
       <input
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
         placeholder="Search boards..."
+        aria-label="Search boards by title"
       />
 
       <h2>Boards List</h2>
 
-      {/* cards */}
       <div className="board-cards">
-        {/* Add Board card */}
         <div className="board-card" onClick={() => handleNavigate('/board/create')}>
           <h3>
             Add New Board
@@ -126,46 +125,57 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Only render the boards section if there are boards */}
         {boards && boards.length > 0 ? (
-          // Only render filtered boards if there are results
           filteredBoards.length > 0 ? (
             filteredBoards.map(board => (
               <>
                 <div
                   className="board-card"
                   key={board.id}
+                  aria-labelledby={`board-${board.id}-title`}
                 >
-                <h3>{board.title}</h3>
-                <h4>{board.user_id}</h4>
-                <div className='description-text'>{board.desc || "No description available"}</div>
-                <button
-                onClick={() => handleNavigate('/editor/' + board.id)}
-                style={{
-                  backgroundColor: '#0073e6',
-                  marginTop: 'auto',
-                  padding: '12px',
-                  fontSize: '24px'
-                }}>
-                  Show Board
-                </button>
-                <button
-                onClick={() => DeleteBoard(board.id)}
-                style={{
-                  backgroundColor: '#e6308a',
-                  color: '#111111',
-                  fontSize: '15px'
-                }}>
-                  Delete
-                </button>
-              </div>
+                  <h3 id={`board-${board.id}-title`}>{board.title}</h3>
+                  <h4>{board.user_id}</h4>
+                  <div className='description-text'>{board.desc || "No description available"}</div>
+                  <button
+                    onClick={() => handleNavigate('/editor/' + board.id)}
+                    style={{
+                      backgroundColor: '#6f118e',
+                      color: '#fff',
+                      marginTop: 'auto',
+                      padding: '12px',
+                      fontSize: '24px',
+                      fontFamily: 'Inter',
+                    }}
+                    aria-label={`Edit board ${board.title}`}
+                  >
+                    Show Board
+                  </button>
+                  <button
+                    onClick={() => DeleteBoard(board.id)}
+                    style={{
+                      backgroundColor: '#e94457',
+                      margin: '12px',
+                      marginBottom: '6px',
+                      padding: '6px',
+                      paddingBottom: '12px',
+                      color: '#dfe6fb',
+                      fontSize: '16px',
+                      fontFamily: 'Inter',
+                      borderStyle: 'hidden',
+                    }}
+                    aria-label={`Delete board ${board.title}`}
+                  >
+                    Delete
+                  </button>
+                </div>
               </>
             ))
           ) : (
-            <div>No boards found matching your search.</div>  // Show message when no boards match the search term
+            <div>No boards found matching your search.</div>
           )
         ) : (
-          <div>No boards available</div>  // Show message if no boards are fetched from API
+          <div>No boards available</div>
         )}
       </div>
     </div>

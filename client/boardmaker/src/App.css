@@ -1,23 +1,22 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .App {
   text-align: center;
-  background-color: rgb(28, 28, 28);
+  font-family: 'Inter', sans-serif;
+  background-color: #040e23;
   min-width: 100vw;
   min-height: 100vh;
-  color: white;
+  color: #dfe6fb;
 }
 
 body {
   min-width: 100vw;
   min-height: 100vh;
+  font-weight: 300;
   overflow:hidden;
+  font-family: 'Inter', sans-serif;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 
 img {
   -webkit-user-drag: none;
@@ -25,4 +24,26 @@ img {
   -moz-user-drag: none;
   -o-user-drag: none;
   user-drag: none;
+}
+
+button {
+  font-family: 'Inter';
+  transition-duration: 200ms;
+  font-size: 2rem;
+  cursor: pointer;
+  transform: scale(.95);
+  color: white;
+  padding: 24px;
+  margin: 16px;
+  background-color: transparent;
+  border-color:  #6e118d;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+}
+
+button:hover {
+  transition-duration: 200ms;
+  transform: scale(1);
+  box-shadow: 0px 0px 4px #ffffff21;
 }

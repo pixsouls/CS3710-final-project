@@ -11,7 +11,7 @@ function Welcome() {
   return (
     <div>
       <h1>Welcome</h1>
-      <button onClick={() => handleNavigate('/dashboard')}>Login</button>
+      <button onClick={() => handleNavigate('/login')}>Login</button>
       <button onClick={() => handleNavigate('/user/create')}>Signup</button>
     </div>
   );

@@ -16,8 +16,12 @@ class Api::V1::BoardsController < ApplicationController
 
   # GET /boards/search
   def search
+    search_term = params[:string]
     user_id = params[:user_id]
-    if user_id
+    # https://stackoverflow.com/questions/22596861/how-can-i-match-a-partial-string-to-a-databases-objects-attribute-regexp
+    if search_term
+      @boards = Board.where("title like ?", '%' + search_term + '%')
+    elsif user_id
       @boards = Board.where(user_id: user_id)
     else
       @boards = Board.all
@@ -36,7 +40,7 @@ class Api::V1::BoardsController < ApplicationController
     @board = Board.new(board_params)
 
     if @board.save
-      render json: @board, status: :created, location: @board
+      render json: @board, status: :created
     else
       render json: @board.errors, status: :unprocessable_entity
     end

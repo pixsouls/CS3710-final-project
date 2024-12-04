@@ -170,7 +170,10 @@ function Editor() {
     <div className="editor">
       <Sidebar  collapsed={collapsed} 
                 className='sidebar'
-                >
+                backgroundColor='#ffffffa0'
+                style={{
+                  position: 'absolute',
+                }}>
       <Menu>
         {collapsed ? (
           <MenuItem icon={<MenuIcon/>} onClick={() => toggleCollapsed(true)}/>
@@ -293,6 +296,7 @@ function Editor() {
                 <button
                   onClick={handleUpdateMedia}
                   style={{
+                    fontSize: '12px',
                     padding: '8px 12px',
                     backgroundColor: '#007BFF',
                     color: '#fff',
@@ -333,9 +337,10 @@ function Editor() {
                   <MenuItem icon={ <ShareIcon />}>
                     <button 
                     style={{
+                      fontSize: '12px',
                       padding: '8px',
-                      backgroundColor: '#007BFF',
-                      color: '#fff',
+                      backgroundColor: '#e944e1',
+                      color: '#191a1e',
                       border: 'none',
                       borderRadius: '4px',
                       cursor: 'pointer',
@@ -349,13 +354,14 @@ function Editor() {
               </MenuItem>
               
               ) : (
-                <MenuItem icon={ <BackIcon /> }>
+                <MenuItem icon={ <BackIcon /> }>  
                 <button 
                   onClick={() => handleNavigate('/dashboard')}
                   style={{
+                    fontSize: '12px',
                     padding: '8px',
-                    backgroundColor: '#007BFF',
-                    color: '#fff',
+                    backgroundColor: '#e944e1',
+                    color: '#191a1e',
                     border: 'none',
                     borderRadius: '4px',
                     cursor: 'pointer',
@@ -368,39 +374,106 @@ function Editor() {
             </Menu>
         </Sidebar>
       <div className='dnd-container'>
-        <p>{saveMessage}</p>
-        {media.length > 0 ? (
-          media.map((item) => (
-            <Draggable
-              id={'MediaID' + item.id}
-              key={item.id}
-              defaultPosition={{ x: item.position['x'], y: item.position['y'] }}
-              bounds={{ left: 0, top: 0 }}
-              onStart={(e, data) => mediaDraggedEvent(e, item.id)}
-              onStop={(e, data) => handleDragStop(e, data, item.id)}
-            >
-              <div
-                className="dnd-picture"
+        {collapsed ? (
+          <p style={{
+            transitionDuration: '500ms',
+            transform: 'translate(100px, 40px)',
+          }}>
+            {saveMessage}
+          </p>
+        ) : (
+          <p
+          style={{
+            transitionDuration: '500ms',
+            transform: 'translate(20px, 840px)',
+          }}>
+            {saveMessage}
+          </p>
+        )}
+       
+        {collapsed ? (
+          <>
+          {media.length > 0 ? (
+            media.map((item) => (
+              <Draggable
+                id={'MediaID' + item.id}
+                key={item.id}
+                defaultPosition={{ x: item.position['x'], y: item.position['y'] }}
+                bounds={{ left: 0, top: 0 }}
+                onStart={(e, data) => mediaDraggedEvent(e, item.id)}
+                onStop={(e, data) => handleDragStop(e, data, item.id)}
+              >
+                <div
+                  className="dnd-picture"
+                  style={{
+                    margin: '4px',
+                    background: '#ffffff122',
+                    borderRadius: '4px',
+                    padding: '4px',
+                  }}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    draggable="false"
+                    style={{ maxWidth: '300px' }}
+                  />
+                  <h3>{item.name}</h3>
+                </div>
+              </Draggable>
+            ))
+            
+          ) : (
+            <p className='InfoMessage'>No media available for this board.</p>
+          )}
+            </>
+        ) : (
+          <>
+          {media.length > 0 ? (
+            media.map((item) => (
+              <Draggable
+                id={'MediaID' + item.id}
+                key={item.id}
+                defaultPosition={{ x: item.position['x'], y: item.position['y'] }}
+                bounds={{ left: 0, top: 0 }}
+                onStart={(e, data) => mediaDraggedEvent(e, item.id)}
+                onStop={(e, data) => handleDragStop(e, data, item.id)}
                 style={{
-                  margin: '4px',
-                  background: '#ffffff122',
-                  borderRadius: '4px',
-                  padding: '4px',
+                  transform: 'translate(20px, 800px)',
                 }}
               >
-                <img
-                  src={item.src}
-                  alt={item.name}
-                  draggable="false"
-                  style={{ maxWidth: '300px' }}
-                />
-                <h3>{item.name}</h3>
-              </div>
-            </Draggable>
-          ))
-        ) : (
-          <p>No media available for this board.</p>
+                <div
+                  className="dnd-picture"
+                  style={{
+                    margin: '4px',
+                    background: '#ffffff122',
+                    borderRadius: '4px',
+                    padding: '4px',
+                  }}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    draggable="false"
+                    style={{ maxWidth: '300px' }}
+                  />
+                  <h3>{item.name}</h3>
+                </div>
+              </Draggable>
+            ))
+            
+          ) : (
+            <p 
+            className='InfoMessage'
+            style={{
+              transform: 'translate(20px, 800px)',
+            }}>
+              No media available for this board.
+            </p>
+          )}
+            </>
         )}
+        
       </div>
     </div>
   );
